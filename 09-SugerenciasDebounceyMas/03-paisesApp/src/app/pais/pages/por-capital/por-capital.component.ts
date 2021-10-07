@@ -1,6 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component } from '@angular/core';
+import { Country } from '../../interfaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
-import { Country } from '../../interfaces/pais-interface';
 
 @Component({
   selector: 'app-por-capital',
@@ -10,27 +10,25 @@ import { Country } from '../../interfaces/pais-interface';
 })
 export class PorCapitalComponent {
 
-  placeholder: string = "Ver por capital...";
-  termino: string = "";
+  termino : string = '';
   hayError: boolean = false;
-  paises: Country[] = [];
-  constructor(private paisService: PaisService) { }
+  paises  : Country[] = [];
 
-  buscar(termineo: string){
+  constructor( private paisService: PaisService ) { }
+
+  buscar( termino: string ) {
+    
     this.hayError = false;
-    this.termino = termineo;
-    this.paisService.buscarCapital(this.termino)
-      .subscribe(paises => {
+    this.termino  = termino;
+
+    this.paisService.buscarCapital( termino )
+      .subscribe( (paises) => {
         this.paises = paises;
-        console.log(paises);
       }, (err) => {
-        this.hayError = true; 
-        this.paises = [];
+        this.hayError = true;
+        this.paises   = [];
       });
-  }
 
-  sugerencias(termino:string){
-    this.hayError = false;
   }
 
 }
